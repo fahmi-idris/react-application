@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import { CircularProgress } from 'material-ui/Progress';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +16,12 @@ const styles = {
   },
   link: {
     textDecoration: 'none'
+  },
+  loading: {
+    position: 'fixed',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
   }
 };
 
@@ -23,7 +30,8 @@ export default class Events extends Component {
     super(props);
   
     this.state = {
-      items: []
+      items: [],
+      loading: true
     };
   
     this.renderData = this.renderData.bind(this);
@@ -38,6 +46,12 @@ export default class Events extends Component {
     this.fetchApi()
   }
 
+  componentWillMount(){
+    this.setState({
+      loading: true,
+    })
+  }
+
   fetchApi(){
     let config = {
       headers: {'x-apikey': '5a16c8fc9c8d4dd23ab177a8'}
@@ -47,9 +61,10 @@ export default class Events extends Component {
       .get('https://event-60a2.restdb.io/rest/events?q={"category._id" : "'+this.props.match.params.category+'"}', config)
       .then(({ data })=> {
         console.log(data);
-        this.setState(
-          { items: data }
-        );
+        this.setState({
+            loading: false, 
+            items: data
+        });
       })
       .catch((err)=> {
         console.log(err)
@@ -84,8 +99,13 @@ export default class Events extends Component {
   }
 
   render() {
+    let loadingComponent = null
+    if(this.state.loading) {
+      loadingComponent = <CircularProgress size={50} style={styles.loading}/>
+    }
     return (
       <div>
+        {loadingComponent}
         {this.renderData()}
       </div>
     );
