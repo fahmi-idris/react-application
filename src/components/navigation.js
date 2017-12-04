@@ -40,13 +40,13 @@ class Navigation extends React.Component {
         <Link to='/'>
           <BottomNavigationButton className={classes.button} showLabel={false} label="Home" value="home" icon={<AccountBalance />} />
         </Link>
-        <Link to='/event'>
-          <BottomNavigationButton className={classes.button} showLabel={false} label="About" value="about" icon={<Today />} />
+        <Link to='/event/category/5a16cea013fb5875000019d1'>
+          <BottomNavigationButton className={classes.button} showLabel={false} label="Event" value="event" icon={<Today />} />
         </Link>
-        <Link to='/event'>
+        <Link to='/event/category/5a16ce9b13fb5875000019d0'>
           <BottomNavigationButton className={classes.button} showLabel={false} label="Meetup" value="meetup" icon={<AccessTime />} />
         </Link>
-        <Link to='/event'>
+        <Link to='/event/category/5a16ce8b13fb5875000019cf'>
           <BottomNavigationButton className={classes.button} showLabel={false} label="Seminar" value="seminar" icon={<EventSeat />} />
         </Link>
         <Link to='/about'>
